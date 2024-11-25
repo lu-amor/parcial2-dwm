@@ -3,32 +3,32 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingVi
 
 export const url = "http://172.20.10.4:8000/destinations";
 
-const EditScreen = ({ route, navigation, updatePlanetAwait }) => {
+const EditScreen = ({ route, navigation, updateDestinationAwait }) => {
     const { id } = route.params;
-    const [planeta, setPlaneta] = useState(null);
+    const [destinationa, setDestinationa] = useState(null);
 
     useEffect(() => {
-        const fetchPlaneta = async () => {
+        const fetchDestinationa = async () => {
             try {
                 const response = await fetch(`${url}/${id}`);
                 const data = await response.json();
-                setPlaneta(data);
+                setDestinationa(data);
             } catch (error) {
-                console.error("Error fetching planet: ", error);
+                console.error("Error fetching destination: ", error);
             }
         };
 
-        fetchPlaneta();
+        fetchDestinationa();
     }, [id]);
 
     useEffect(() => {
-        if (planeta) {
-            setName(planeta.name);
-            setDescription(planeta.description);
-            setDifficulty(planeta.difficulty);
-            setFavorites(planeta.favorites);
+        if (destinationa) {
+            setName(destinationa.name);
+            setDescription(destinationa.description);
+            setDifficulty(destinationa.difficulty);
+            setFavorites(destinationa.favorites);
         }
-    }, [planeta]);
+    }, [destinationa]);
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -43,20 +43,20 @@ const EditScreen = ({ route, navigation, updatePlanetAwait }) => {
         setFavorites(favorites - 1);
     };
 
-    const handleUpdatePlanet = () => {
+    const handleUpdateDestination = () => {
         if (!name || !description || !difficulty) {
             alert("Todos los campos son obligatorios.");
             return;
         }
 
-        const updatedPlanet = {
+        const updatedDestination = {
             name,
             description,
             difficulty,
             favorites
         };
 
-        updatePlanetAwait(id, updatedPlanet);
+        updateDestinationAwait(id, updatedDestination);
         navigation.reset({
             index: 0,
             routes: [{ name: "Agencia de viajes" }],
@@ -87,7 +87,7 @@ const EditScreen = ({ route, navigation, updatePlanetAwait }) => {
                 value={difficulty}
                 onChangeText={setDifficulty}
             />
-            <TouchableOpacity style={styles.button} onPress={handleUpdatePlanet}>
+            <TouchableOpacity style={styles.button} onPress={handleUpdateDestination}>
                 <Text style={styles.buttonText}>Actualizar Destino</Text>
             </TouchableOpacity>
         </KeyboardAvoidingView>

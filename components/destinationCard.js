@@ -4,14 +4,14 @@ import { useNavigation } from "@react-navigation/native";
 
 export const url = "http://172.20.10.4:8000/destinations";
 
-const DestinationCard = ({ planet, updatePlanetAwait}) => {
+const DestinationCard = ({ destination, updateDestinationAwait}) => {
     const navigation = useNavigation();
-    const id = planet.id;
+    const id = destination.id;
 
-    const name = planet.name;
-    const description = planet.description;
-    const difficulty = planet.difficulty;
-    const [favorites, setFavorites] = useState(planet.favorites);
+    const name = destination.name;
+    const description = destination.description;
+    const difficulty = destination.difficulty;
+    const [favorites, setFavorites] = useState(destination.favorites);
 
     const handleNavigation = () => {
         navigation.navigate("Details", { id });
@@ -19,29 +19,29 @@ const DestinationCard = ({ planet, updatePlanetAwait}) => {
 
     const handleAdd = () => {
         setFavorites(favorites + 1);
-        updatePlanet();
+        updateDestination();
     };
 
     const handleSubtract = async () => {
         setFavorites(favorites - 1);
-        updatePlanet();
+        updateDestination();
     };
 
-    const updatePlanet = () => {
-        const updatedPlanet = {
+    const updateDestination = () => {
+        const updatedDestination = {
             name,
             description,
             difficulty,
             favorites
         };
-        updatePlanetAwait(id, updatedPlanet);
+        updateDestinationAwait(id, updatedDestination);
     }
 
 
     return (
         <TouchableOpacity onPress={handleNavigation} style={styles.card}>
             <View style={styles.container}>
-                <Text style={styles.text}>{planet.name}</Text>
+                <Text style={styles.text}>{destination.name}</Text>
                 <View style={styles.containerF}>
                     <TouchableOpacity
                     onPress={handleSubtract}>
@@ -57,15 +57,15 @@ const DestinationCard = ({ planet, updatePlanetAwait}) => {
                     </View>
                     </TouchableOpacity>
                 </View>
-                { planet.difficulty === "Fácil" &&
+                { destination.difficulty === "Fácil" &&
                     <View style={styles.facil}>
                     </View>
                 }
-                { planet.difficulty === "Moderada" &&
+                { destination.difficulty === "Moderada" &&
                     <View style={styles.moderada}>
                     </View>
                 }
-                { planet.difficulty === "Difícil" &&
+                { destination.difficulty === "Difícil" &&
                     <View style={styles.dificil}>
                     </View>
                 }

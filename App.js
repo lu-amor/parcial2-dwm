@@ -12,9 +12,9 @@ const Stack = createNativeStackNavigator();
 export const url = "http://172.20.10.4:8000/destinations";
 
 export default function App() {
-  const [planets, setPlanets] = useState([]);
+  const [destinations, setDestinations] = useState([]);
 
-  async function fetchPlanets() {
+  async function fetchDestinations() {
     try {
       const response = await fetch(url, {
         method: "GET",
@@ -30,52 +30,52 @@ export default function App() {
     }
   }
 
-  function getPlanetsAwait() {
-    fetchPlanets()
+  function getDestinationsAwait() {
+    fetchDestinations()
       .then((data) => {
         if (data.length > 0) {
-          setPlanets(data);
+          setDestinations(data);
         } else {
-          console.log("No planets found.");
+          console.log("No destinations found.");
         }
       })
-      .catch((error) => console.error("Error fetching planets:", error));
+      .catch((error) => console.error("Error fetching destinations:", error));
   }
 
   useEffect(() => {
-    getPlanetsAwait();
+    getDestinationsAwait();
   }, []);
 
-  async function createPlanet(newPlanet) {
+  async function createDestination(newDestination) {
     try {
       const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(newPlanet),
+        body: JSON.stringify(newDestination),
       });
       const data = await response.json();
       return data;
     } catch (error) {
-      console.log("Error creating planet: ", error);
+      console.log("Error creating destination: ", error);
       return null;
     }
   }
 
-  function createPlanetAwait(newPlanet) {
-    createPlanet(newPlanet)
-      .then((createdPlanet) => {
-        if (createdPlanet) {
-          setPlanets((prev) => [...prev, createdPlanet]);
+  function createDestinationAwait(newDestination) {
+    createDestination(newDestination)
+      .then((createdDestination) => {
+        if (createdDestination) {
+          setDestinations((prev) => [...prev, createdDestination]);
         } else {
-          console.log("Failed to create planet.");
+          console.log("Failed to create destination.");
         }
       })
-      .catch((error) => console.error("Error creating planet:", error));
+      .catch((error) => console.error("Error creating destination:", error));
   }
 
-  async function updatePlanet(id, updatedFields) {
+  async function updateDestination(id, updatedFields) {
     try {
       const response = await fetch(`${url}/${id}`, {
         method: "PATCH",
@@ -87,29 +87,29 @@ export default function App() {
       const data = await response.json();
       return data;
     } catch (error) {
-      console.log("Error updating planet: ", error);
+      console.log("Error updating destination: ", error);
       return null;
     }
   }
 
-  function updatePlanetAwait(id, updatedFields) {
-    updatePlanet(id, updatedFields)
-      .then((updatedPlanet) => {
-        if (updatedPlanet) {
-          setPlanets((prev) =>
-            prev.map((planet) =>
-              planet.id === id ? { ...planet, ...updatedPlanet } : planet
+  function updateDestinationAwait(id, updatedFields) {
+    updateDestination(id, updatedFields)
+      .then((updatedDestination) => {
+        if (updatedDestination) {
+          setDestinations((prev) =>
+            prev.map((destination) =>
+              destination.id === id ? { ...destination, ...updatedDestination } : destination
             )
           );
         } else {
-          console.log("Failed to update planet.");
+          console.log("Failed to update destination.");
         }
       })
-      .catch((error) => console.error("Error updating planet:", error));
-    getPlanetsAwait();
+      .catch((error) => console.error("Error updating destination:", error));
+    getDestinationsAwait();
   }
 
-  async function deletePlanet(id) {
+  async function deleteDestination(id) {
     try {
       const response = await fetch(`${url}/${id}`, {
         method: "DELETE",
@@ -120,41 +120,41 @@ export default function App() {
       if (response.ok) {
         return true;
       } else {
-        console.log(`Failed to delete planet with ID ${id}`);
+        console.log(`Failed to delete destination with ID ${id}`);
         return false;
       }
     } catch (error) {
-      console.log("Error deleting planet: ", error);
+      console.log("Error deleting destination: ", error);
       return false;
     }
   }
 
-  function deletePlanetAwait(id) {
-    deletePlanet(id)
+  function deleteDestinationAwait(id) {
+    deleteDestination(id)
       .then((success) => {
         if (success) {
-          setPlanets((prev) => prev.filter((planet) => planet.id !== id));
+          setDestinations((prev) => prev.filter((destination) => destination.id !== id));
         } else {
-          console.log(`Failed to delete planet with ID ${id}.`);
+          console.log(`Failed to delete destination with ID ${id}.`);
         }
       })
-      .catch((error) => console.error("Error deleting planet:", error));
+      .catch((error) => console.error("Error deleting destination:", error));
   }
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Agencia de viajes">
-          {(props) => (<HomeScreen {...props} planets={planets}
-              getPlanetsAwait={getPlanetsAwait}
-              updatePlanetAwait={updatePlanetAwait}/>)}
+          {(props) => (<HomeScreen {...props} destinations={destinations}
+              getDestinationsAwait={getDestinationsAwait}
+              updateDestinationAwait={updateDestinationAwait}/>)}
         </Stack.Screen>
         <Stack.Screen name="Details">
             {(props) => (
                 <DetailsScreen
                     {...props}
-                    getPlanetsAwait={getPlanetsAwait}
-                    deletePlanetAwait={deletePlanetAwait}
+                    getDestinationsAwait={getDestinationsAwait}
+                    deleteDestinationAwait={deleteDestinationAwait}
                 />
             )}
         </Stack.Screen>
@@ -162,8 +162,8 @@ export default function App() {
             {(props) => (
                 <EditScreen
                     {...props}
-                    updatePlanetAwait={updatePlanetAwait}
-                    getPlanetsAwait={getPlanetsAwait}
+                    updateDestinationAwait={updateDestinationAwait}
+                    getDestinationsAwait={getDestinationsAwait}
                 />
             )}
         </Stack.Screen>
@@ -171,8 +171,8 @@ export default function App() {
             {(props) => (
                 <AddScreen
                     {...props}
-                    createPlanetAwait={createPlanetAwait}
-                    getPlanetsAwait={getPlanetsAwait}
+                    createDestinationAwait={createDestinationAwait}
+                    getDestinationsAwait={getDestinationsAwait}
                 />
             )}
         </Stack.Screen>

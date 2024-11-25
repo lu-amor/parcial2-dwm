@@ -3,26 +3,26 @@ import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Alert } fr
 
 export const url = "http://172.20.10.4:8000/destinations";
 
-const DetailsScreen = ({ route, navigation, deletePlanetAwait }) => {
+const DetailsScreen = ({ route, navigation, deleteDestinationAwait }) => {
     const { id } = route.params;
-    const [planeta, setPlaneta] = useState(null);
+    const [destinationa, setDestinationa] = useState(null);
 
     useEffect(() => {
-        const fetchPlaneta = async () => {
+        const fetchDestinationa = async () => {
             try {
                 const response = await fetch(`${url}/${id}`);
                 const data = await response.json();
-                setPlaneta(data);
+                setDestinationa(data);
             } catch (error) {
-                console.error("Error fetching planet: ", error);
+                console.error("Error fetching destination: ", error);
             }
         };
 
-        fetchPlaneta();
+        fetchDestinationa();
     }, [id]);
 
     const handleDelete = async () => {
-        await deletePlanetAwait(id)
+        await deleteDestinationAwait(id)
         navigation.reset({
             index: 0,
             routes: [{ name: "Agencia de viajes" }],
@@ -33,10 +33,10 @@ const DetailsScreen = ({ route, navigation, deletePlanetAwait }) => {
         navigation.navigate("Edit", { id });
     };
 
-    if (!planeta) {
+    if (!destinationa) {
         return (
             <View style={styles.loadingContainer}>
-                <Text style={styles.loadingText}>Cargando planeta...</Text>
+                <Text style={styles.loadingText}>Cargando destinationa...</Text>
             </View>
         );
     }
@@ -45,10 +45,10 @@ const DetailsScreen = ({ route, navigation, deletePlanetAwait }) => {
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContainer}>
                 <View style={styles.contenedor}>
-                    <Image source={{ uri: planeta.image }} style={styles.image} />
-                    <Text style={styles.name}>{planeta.name}</Text>
-                    <Text style={styles.description}>{planeta.description}</Text>
-                    <Text style={styles.description}>{planeta.difficulty}</Text>
+                    <Image source={{ uri: destinationa.image }} style={styles.image} />
+                    <Text style={styles.name}>{destinationa.name}</Text>
+                    <Text style={styles.description}>{destinationa.description}</Text>
+                    <Text style={styles.description}>{destinationa.difficulty}</Text>
                 </View>
             </ScrollView>
             <View style={styles.buttonContainer}>

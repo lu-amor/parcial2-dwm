@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, KeyboardAvoidingView, Dropdown } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
-const AddScreen = ({ createPlanetAwait, getPlanetsAwait }) => {
+const AddScreen = ({ createDestinationAwait, getDestinationsAwait }) => {
     const navigation = useNavigation();
 
     useEffect(() => {
         navigation.setOptions({
-            createPlanetAwait,
-            getPlanetsAwait,
+            createDestinationAwait,
+            getDestinationsAwait,
         });
     }, []);
 
@@ -16,7 +16,7 @@ const AddScreen = ({ createPlanetAwait, getPlanetsAwait }) => {
     const [description, setDescription] = useState("");
     const [difficulty, setDifficulty] = useState("");
 
-    const handleCreatePlanet = () => {
+    const handleCreateDestination = () => {
         if (!name || !description || !difficulty) {
             alert("Todos los campos son obligatorios.");
             return;
@@ -28,14 +28,14 @@ const AddScreen = ({ createPlanetAwait, getPlanetsAwait }) => {
         const favorites = 0;
         console.log(difficulty);
 
-        const newPlanet = {
+        const newDestination = {
             name,
             description,
             difficulty,
             favorites
         };
 
-        createPlanetAwait(newPlanet);
+        createDestinationAwait(newDestination);
         navigation.reset({
             index: 0,
             routes: [{ name: "Agencia de viajes" }],
@@ -66,7 +66,7 @@ const AddScreen = ({ createPlanetAwait, getPlanetsAwait }) => {
                 value={difficulty}
                 onChangeText={setDifficulty}
             />
-            <TouchableOpacity style={styles.button} onPress={handleCreatePlanet}>
+            <TouchableOpacity style={styles.button} onPress={handleCreateDestination}>
                 <Text style={styles.buttonText}>Crear Destino</Text>
             </TouchableOpacity>
         </KeyboardAvoidingView>

@@ -3,8 +3,8 @@ import DestinationCard from "../components/destinationCard";
 import { useNavigation } from "@react-navigation/native";
 import { FlatList, TouchableOpacity, Text, StyleSheet, View, ScrollView, Platform } from "react-native";
 
-const HomeScreen = ({planets, updatePlanetAwait}) => {
-    const [sortedPlanets, setSortedPlanets] = useState(planets);
+const HomeScreen = ({destinations, updateDestinationAwait}) => {
+    const [sortedDestinations, setSortedDestinations] = useState(destinations);
     const navigation = useNavigation();
 
     const handleNavigation = () => {
@@ -12,9 +12,9 @@ const HomeScreen = ({planets, updatePlanetAwait}) => {
     };
 
     useEffect(() => {
-        const sorted = [...planets].sort((a, b) => b.favorites - a.favorites);
-        setSortedPlanets(sorted);
-    }, [planets]);
+        const sorted = [...destinations].sort((a, b) => b.favorites - a.favorites);
+        setSortedDestinations(sorted);
+    }, [destinations]);
 
 
     return (
@@ -31,8 +31,8 @@ const HomeScreen = ({planets, updatePlanetAwait}) => {
             )}
             </View>
             <ScrollView style={{ alignContent: "center", backgroundColor: "#000000", paddingBottom: 50}}>
-                {sortedPlanets.map((destination) => (
-                    <DestinationCard key={destination.id.toString()} planet={destination} updatePlanetAwait={updatePlanetAwait}/>
+                {sortedDestinations.map((destination) => (
+                    <DestinationCard key={destination.id.toString()} destination={destination} updateDestinationAwait={updateDestinationAwait}/>
                 ))}
             </ScrollView>
         </>
