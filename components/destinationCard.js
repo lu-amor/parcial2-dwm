@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -8,15 +8,56 @@ const DestinationCard = ({ planet, updatePlanetAwait }) => {
     const navigation = useNavigation();
     const id = planet.id;
 
+    const name = planet.name;
+    const description = planet.description;
+    const difficulty = planet.difficulty;
+    const [favorites, setFavorites] = useState(planet.favorites);
+
     const handleNavigation = () => {
         navigation.navigate("Details", { id });
     };
+
+    const handleAdd = () => {
+        setFavorites(favorites + 1);
+        updatePlanet();
+    };
+
+    const handleSubtract = async () => {
+        setFavorites(favorites - 1);
+        updatePlanet();
+    };
+
+    const updatePlanet = () => {
+        const updatedPlanet = {
+            name,
+            description,
+            difficulty,
+            favorites
+        };
+        console.log(updatedPlanet);
+        updatePlanetAwait(id, updatedPlanet);
+    }
+
 
     return (
         <TouchableOpacity onPress={handleNavigation} style={styles.card}>
             <View style={styles.container}>
                 <Text style={styles.text}>{planet.name}</Text>
-                <Text style={styles.favorites}>{planet.favorites}</Text>
+                <View style={styles.containerF}>
+                    <TouchableOpacity
+                    onPress={handleSubtract}>
+                    <View style={styles.buttonWrapper}>
+                        <Text style={styles.buttonTextF}>-</Text>
+                    </View>
+                    </TouchableOpacity>
+                    <Text style={styles.countText}>{favorites}</Text>
+                    <TouchableOpacity
+                    onPress={handleAdd}>
+                    <View style={styles.buttonWrapper}>
+                        <Text style={styles.buttonTextF}>+</Text>
+                    </View>
+                    </TouchableOpacity>
+                </View>
                 { planet.difficulty === "Fácil" &&
                     <View style={styles.facil}>
                     </View>
@@ -36,7 +77,7 @@ const DestinationCard = ({ planet, updatePlanetAwait }) => {
 
 const styles = StyleSheet.create({
     card: {
-        height: 140,
+        height: 190,
         width: "80%",
         minWidth: 250,
         margin: 10,
@@ -46,6 +87,33 @@ const styles = StyleSheet.create({
         borderColor: "#ffffff",
         borderWidth: 2,
         borderRadius: 10,
+    },
+    containerF: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        gap: 20,
+        marginBottom: 15
+    },
+    buttonWrapper: {
+        width: 60,
+        height: 60,
+        backgroundColor: '#aed9e0',
+        borderRadius: 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: '#5e6472',
+        borderWidth: 2,
+    },
+    countText: {
+        fontSize: 20,
+        fontWeight: 'medium',
+        color: '#ffffff',
+    },
+    buttonTextF: {
+        fontSize: 20,
+        fontWeight: 'medium',
+        color: '#5e6472',
     },
     facil: {
         backgroundColor: "green",

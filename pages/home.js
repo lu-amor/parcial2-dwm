@@ -3,7 +3,7 @@ import DestinationCard from "../components/destinationCard";
 import { useNavigation } from "@react-navigation/native";
 import { FlatList, TouchableOpacity, Text, StyleSheet, View, ScrollView, Platform } from "react-native";
 
-const HomeScreen = ({planets, updatePlanetAwait}) => {
+const HomeScreen = ({planets, updatePlanetAwait, getPlanetsAwait}) => {
     const [sortedPlanets, setSortedPlanets] = useState(planets);
     const navigation = useNavigation();
 
@@ -12,6 +12,7 @@ const HomeScreen = ({planets, updatePlanetAwait}) => {
     };
 
     useEffect(() => {
+        getPlanetsAwait();
         const sorted = [...planets].sort((a, b) => b.favorites - a.favorites);
         setSortedPlanets(sorted);
     }, [planets]);
