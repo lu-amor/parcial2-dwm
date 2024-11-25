@@ -3,7 +3,7 @@ import DestinationCard from "../components/destinationCard";
 import { useNavigation } from "@react-navigation/native";
 import { FlatList, TouchableOpacity, Text, StyleSheet, View, ScrollView, Platform } from "react-native";
 
-const HomeScreen = ({planets}) => {
+const HomeScreen = ({planets, updatePlanetAwait}) => {
     const [sortedPlanets, setSortedPlanets] = useState(planets);
     const navigation = useNavigation();
 
@@ -32,7 +32,7 @@ const HomeScreen = ({planets}) => {
             </View>
             <ScrollView style={{ alignContent: "center", backgroundColor: "#000000", paddingBottom: 50}}>
                 {sortedPlanets.map((destination) => (
-                    <DestinationCard key={destination.id.toString()} planet={destination} />
+                    <DestinationCard key={destination.id.toString()} planet={destination} updatePlanetAwait={updatePlanetAwait} />
                 ))}
             </ScrollView>
         </>

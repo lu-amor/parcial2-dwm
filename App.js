@@ -144,7 +144,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Agencia de viajes">
-          {(props) => <HomeScreen {...props} planets={planets} />}
+          {(props) => (<HomeScreen {...props} planets={planets} updatePlanetAwait={updatePlanetAwait}/>)}
         </Stack.Screen>
         <Stack.Screen name="Details">
             {(props) => (

@@ -17,11 +17,16 @@ const AddScreen = ({ createPlanetAwait, getPlanetsAwait }) => {
     const [difficulty, setDifficulty] = useState("");
 
     const handleCreatePlanet = () => {
-        if (!name || !description || !difficulty || name !== "Fácil" || name !== "Moderada" || name !== "Difícil") {
+        if (!name || !description || !difficulty) {
             alert("Todos los campos son obligatorios.");
             return;
         }
+        if (difficulty !== "Fácil" && difficulty != "Moderada" && difficulty != "Difícil") {
+            alert("La dificultad ingresada no es válida, verifique ortografía");
+            return;
+        }
         const favorites = 0;
+        console.log(difficulty);
 
         const newPlanet = {
             name,

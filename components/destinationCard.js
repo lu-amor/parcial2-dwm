@@ -2,7 +2,9 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const DestinationCard = ({ planet }) => {
+export const url = "http://172.20.10.4:8000/destinations";
+
+const DestinationCard = ({ planet, updatePlanetAwait }) => {
     const navigation = useNavigation();
     const id = planet.id;
 
