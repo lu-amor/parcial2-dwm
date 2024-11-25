@@ -19,7 +19,7 @@
       "name": "Desierto del Sahara 🏜️☀️",
       "description": "El desierto cálido más grande del mundo, situado en África.",
       "difficulty": "Moderada",
-      "favorites": 85
+      "favorites": 87
     },
     {
       "id": "4",
@@ -54,7 +54,7 @@
       "name": "Auroras Boreales en Noruega 🌌❄️",
       "description": "Un fenómeno natural espectacular visible en el cielo nocturno ártico.",
       "difficulty": "Fácil",
-      "favorites": 141
+      "favorites": 143
     }
   ]
 }

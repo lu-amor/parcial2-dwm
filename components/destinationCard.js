@@ -34,7 +34,6 @@ const DestinationCard = ({ planet, updatePlanetAwait }) => {
             difficulty,
             favorites
         };
-        console.log(updatedPlanet);
         updatePlanetAwait(id, updatedPlanet);
     }
 
