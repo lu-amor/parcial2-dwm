@@ -49,7 +49,6 @@ const DetailsScreen = ({ route, navigation, deletePlanetAwait }) => {
                     <Text style={styles.name}>{planeta.name}</Text>
                     <Text style={styles.description}>{planeta.description}</Text>
                     <Text style={styles.description}>{planeta.difficulty}</Text>
-                    <Text style={styles.description}>{planeta.favorites}</Text>
                 </View>
             </ScrollView>
             <View style={styles.buttonContainer}>
@@ -107,7 +106,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     button: {
-        backgroundColor: "#f0a6ca",
+        backgroundColor: "#048ba8",
         width: "45%",
         borderRadius: 15,
         height: 50,

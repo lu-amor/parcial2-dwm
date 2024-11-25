@@ -106,6 +106,7 @@ export default function App() {
         }
       })
       .catch((error) => console.error("Error updating planet:", error));
+    getPlanetsAwait();
   }
 
   async function deletePlanet(id) {

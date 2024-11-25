@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 
 export const url = "http://172.20.10.4:8000/destinations";
 
-const DestinationCard = ({ planet, updatePlanetAwait }) => {
+const DestinationCard = ({ planet, updatePlanetAwait}) => {
     const navigation = useNavigation();
     const id = planet.id;
 
@@ -97,12 +97,10 @@ const styles = StyleSheet.create({
     buttonWrapper: {
         width: 60,
         height: 60,
-        backgroundColor: '#aed9e0',
+        backgroundColor: '#048ba8',
         borderRadius: 60,
         justifyContent: 'center',
         alignItems: 'center',
-        borderColor: '#5e6472',
-        borderWidth: 2,
     },
     countText: {
         fontSize: 20,
@@ -112,22 +110,22 @@ const styles = StyleSheet.create({
     buttonTextF: {
         fontSize: 20,
         fontWeight: 'medium',
-        color: '#5e6472',
+        color: '#ffffff',
     },
     facil: {
-        backgroundColor: "green",
+        backgroundColor: "#83e377",
         width: 80,
         height: 20,
         borderRadius: 10,
     },
     moderada: {
-        backgroundColor: "yellow",
+        backgroundColor: "#efea5a",
         width: 80,
         height: 20,
         borderRadius: 10
     },
     dificil: {
-        backgroundColor: "purple",
+        backgroundColor: "#54478c",
         width: 80,
         height: 20,
         borderRadius: 10

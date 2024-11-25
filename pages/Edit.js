@@ -87,21 +87,6 @@ const EditScreen = ({ route, navigation, updatePlanetAwait }) => {
                 value={difficulty}
                 onChangeText={setDifficulty}
             />
-                <View style={styles.containerF}>
-                    <TouchableOpacity
-                    onPress={handleSubtract}>
-                    <View style={styles.buttonWrapper}>
-                        <Text style={styles.buttonTextF}>-</Text>
-                    </View>
-                    </TouchableOpacity>
-                    <Text style={styles.countText}>{favorites}</Text>
-                    <TouchableOpacity
-                    onPress={handleAdd}>
-                    <View style={styles.buttonWrapper}>
-                        <Text style={styles.buttonTextF}>+</Text>
-                    </View>
-                    </TouchableOpacity>
-                </View>
             <TouchableOpacity style={styles.button} onPress={handleUpdatePlanet}>
                 <Text style={styles.buttonText}>Actualizar Destino</Text>
             </TouchableOpacity>
@@ -131,7 +116,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     button: {
-        backgroundColor: "#f0a6ca",
+        backgroundColor: "#048ba8",
         padding: 15,
         borderRadius: 8,
         alignItems: "center",
