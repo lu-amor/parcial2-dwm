@@ -9,7 +9,7 @@ import AddScreen from "./pages/Add";
 import EditScreen from "./pages/Edit";
 
 const Stack = createNativeStackNavigator();
-export const url = "http://172.20.10.4:8000/planets";
+export const url = "http://172.20.10.4:8000/destinations";
 
 export default function App() {
   const [planets, setPlanets] = useState([]);
@@ -143,7 +143,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Planetario UCU">
+        <Stack.Screen name="Agencia de viajes">
           {(props) => <HomeScreen {...props} planets={planets} />}
         </Stack.Screen>
         <Stack.Screen name="Details">

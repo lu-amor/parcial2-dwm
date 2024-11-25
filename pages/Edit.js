@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView } from "react-native";
 
-export const url = "http://172.20.10.4:8000/planets";
+export const url = "http://172.20.10.4:8000/destinations";
 
 const EditScreen = ({ route, navigation, updatePlanetAwait }) => {
     const { id } = route.params;
@@ -25,19 +25,26 @@ const EditScreen = ({ route, navigation, updatePlanetAwait }) => {
         if (planeta) {
             setName(planeta.name);
             setDescription(planeta.description);
-            setMoons(planeta.moons.toString());
-            setMoonNames(planeta.moon_names.join(", "));
-            setImage(planeta.image);
+            setDifficulty(planeta.difficulty);
+            setFavorites(planeta.favorites);
         }
     }, [planeta]);
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [moons, setMoons] = useState("");
-    const [moonNames, setMoonNames] = useState("");
-    const [image, setImage] = useState("");
+    const [difficulty, setDifficulty] = useState("");
+    const [favorites, setFavorites] = useState("");
+
+    const handleAdd = () => {
+        setFavorites(favorites + 1);
+    };
+
+    const handleSubtract = () => {
+        setFavorites(favorites - 1);
+    };
+
     const handleUpdatePlanet = () => {
-        if (!name || !description || !moons || !image) {
+        if (!name || !description || !difficulty) {
             alert("Todos los campos son obligatorios.");
             return;
         }
@@ -45,21 +52,20 @@ const EditScreen = ({ route, navigation, updatePlanetAwait }) => {
         const updatedPlanet = {
             name,
             description,
-            moons: parseInt(moons) || 0,
-            moon_names: moonNames.split(",").map((moon) => moon.trim()),
-            image,
+            difficulty,
+            favorites
         };
 
         updatePlanetAwait(id, updatedPlanet);
         navigation.reset({
             index: 0,
-            routes: [{ name: "Planetario UCU" }],
+            routes: [{ name: "Agencia de viajes" }],
         });
     };
 
     return (
         <KeyboardAvoidingView style={styles.container}>
-            <Text style={styles.headerText}>Editar Planeta</Text>
+            <Text style={styles.headerText}>Editar Destino</Text>
             <TextInput
                 style={styles.input}
                 placeholder="Nombre"
@@ -76,28 +82,28 @@ const EditScreen = ({ route, navigation, updatePlanetAwait }) => {
             />
             <TextInput
                 style={styles.input}
-                placeholder="Número de lunas"
+                placeholder="Dificultad"
                 placeholderTextColor="#aaa"
-                keyboardType="numeric"
-                value={moons}
-                onChangeText={setMoons}
+                value={difficulty}
+                onChangeText={setDifficulty}
             />
-            <TextInput
-                style={styles.input}
-                placeholder="Nombres de lunas (separados por comas)"
-                placeholderTextColor="#aaa"
-                value={moonNames}
-                onChangeText={setMoonNames}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="URL de la imagen"
-                placeholderTextColor="#aaa"
-                value={image}
-                onChangeText={setImage}
-            />
+                <View style={styles.containerF}>
+                    <TouchableOpacity
+                    onPress={handleSubtract}>
+                    <View style={styles.buttonWrapper}>
+                        <Text style={styles.buttonTextF}>-</Text>
+                    </View>
+                    </TouchableOpacity>
+                    <Text style={styles.countText}>{favorites}</Text>
+                    <TouchableOpacity
+                    onPress={handleAdd}>
+                    <View style={styles.buttonWrapper}>
+                        <Text style={styles.buttonTextF}>+</Text>
+                    </View>
+                    </TouchableOpacity>
+                </View>
             <TouchableOpacity style={styles.button} onPress={handleUpdatePlanet}>
-                <Text style={styles.buttonText}>Actualizar Planeta</Text>
+                <Text style={styles.buttonText}>Actualizar Destino</Text>
             </TouchableOpacity>
         </KeyboardAvoidingView>
     );
@@ -130,6 +136,32 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         alignItems: "center",
         marginTop: 10,
+    },
+    containerF: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        gap: 20,
+    },
+    buttonWrapper: {
+        width: 60,
+        height: 60,
+        backgroundColor: '#aed9e0',
+        borderRadius: 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: '#5e6472',
+        borderWidth: 2,
+    },
+    countText: {
+        fontSize: 20,
+        fontWeight: 'medium',
+        color: '#ffffff',
+    },
+    buttonTextF: {
+        fontSize: 20,
+        fontWeight: 'medium',
+        color: '#5e6472',
     },
     buttonText: {
         color: "#ffffff",

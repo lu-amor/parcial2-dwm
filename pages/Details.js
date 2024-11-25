@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Alert } from "react-native";
 
-export const url = "http://172.20.10.4:8000/planets";
+export const url = "http://172.20.10.4:8000/destinations";
 
 const DetailsScreen = ({ route, navigation, deletePlanetAwait }) => {
     const { id } = route.params;
@@ -25,7 +25,7 @@ const DetailsScreen = ({ route, navigation, deletePlanetAwait }) => {
         await deletePlanetAwait(id)
         navigation.reset({
             index: 0,
-            routes: [{ name: "Planetario UCU" }],
+            routes: [{ name: "Agencia de viajes" }],
         });
     };
 
@@ -48,15 +48,8 @@ const DetailsScreen = ({ route, navigation, deletePlanetAwait }) => {
                     <Image source={{ uri: planeta.image }} style={styles.image} />
                     <Text style={styles.name}>{planeta.name}</Text>
                     <Text style={styles.description}>{planeta.description}</Text>
-                    <Text style={styles.description}>Moons: {planeta.moons}</Text>
-                    {planeta.moons > 0 && (
-                        <>
-                            <Text style={styles.description}>Moon Names:</Text>
-                            {planeta.moon_names.map((moon, index) => (
-                                <Text key={index} style={styles.description}>{moon.trim()}</Text>
-                            ))}
-                        </>
-                    )}
+                    <Text style={styles.description}>{planeta.difficulty}</Text>
+                    <Text style={styles.description}>{planeta.favorites}</Text>
                 </View>
             </ScrollView>
             <View style={styles.buttonContainer}>

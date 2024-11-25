@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, KeyboardAvoidingView } from "react-native";
+import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, KeyboardAvoidingView, Dropdown } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 const AddScreen = ({ createPlanetAwait, getPlanetsAwait }) => {
@@ -14,37 +14,35 @@ const AddScreen = ({ createPlanetAwait, getPlanetsAwait }) => {
 
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [moons, setMoons] = useState("");
-    const [moonNames, setMoonNames] = useState("");
-    const [image, setImage] = useState("");
+    const [difficulty, setDifficulty] = useState("");
 
     const handleCreatePlanet = () => {
-        if (!name || !description || !moons || !image) {
+        if (!name || !description || !difficulty || name !== "Fácil" || name !== "Moderada" || name !== "Difícil") {
             alert("Todos los campos son obligatorios.");
             return;
         }
+        const favorites = 0;
 
         const newPlanet = {
             name,
             description,
-            moons: parseInt(moons) || 0,
-            moon_names: moonNames.split(",").map((moon) => moon.trim()),
-            image,
+            difficulty,
+            favorites
         };
 
         createPlanetAwait(newPlanet);
         navigation.reset({
             index: 0,
-            routes: [{ name: "Planetario UCU" }],
+            routes: [{ name: "Agencia de viajes" }],
         });
     };
 
     return (
         <KeyboardAvoidingView style={styles.container}>
-            <Text style={styles.headerText}>Nuevo Planeta</Text>
+            <Text style={styles.headerText}>Nuevo Destino</Text>
             <TextInput
                 style={styles.input}
-                placeholder="Nombre del planeta"
+                placeholder="Nombre del destino"
                 placeholderTextColor="#aaa"
                 value={name}
                 onChangeText={setName}
@@ -58,28 +56,13 @@ const AddScreen = ({ createPlanetAwait, getPlanetsAwait }) => {
             />
             <TextInput
                 style={styles.input}
-                placeholder="Número de lunas"
+                placeholder="Dificultad"
                 placeholderTextColor="#aaa"
-                keyboardType="numeric"
-                value={moons}
-                onChangeText={setMoons}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Nombres de lunas (separados por comas)"
-                placeholderTextColor="#aaa"
-                value={moonNames}
-                onChangeText={setMoonNames}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="URL de la imagen"
-                placeholderTextColor="#aaa"
-                value={image}
-                onChangeText={setImage}
+                value={difficulty}
+                onChangeText={setDifficulty}
             />
             <TouchableOpacity style={styles.button} onPress={handleCreatePlanet}>
-                <Text style={styles.buttonText}>Crear Planeta</Text>
+                <Text style={styles.buttonText}>Crear Destino</Text>
             </TouchableOpacity>
         </KeyboardAvoidingView>
     );

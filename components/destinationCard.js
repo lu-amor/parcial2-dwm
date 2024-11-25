@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const PlanetCard = ({ planet }) => {
+const DestinationCard = ({ planet }) => {
     const navigation = useNavigation();
     const id = planet.id;
 
@@ -14,7 +14,19 @@ const PlanetCard = ({ planet }) => {
         <TouchableOpacity onPress={handleNavigation} style={styles.card}>
             <View style={styles.container}>
                 <Text style={styles.text}>{planet.name}</Text>
-                <Image source={{ uri: planet.image }} style={{ width: 100, height: 100, alignSelf: "center"}} />
+                <Text style={styles.favorites}>{planet.favorites}</Text>
+                { planet.difficulty === "Fácil" &&
+                    <View style={styles.facil}>
+                    </View>
+                }
+                { planet.difficulty === "Moderada" &&
+                    <View style={styles.moderada}>
+                    </View>
+                }
+                { planet.difficulty === "Difícil" &&
+                    <View style={styles.dificil}>
+                    </View>
+                }
             </View>
         </TouchableOpacity>
     );
@@ -22,7 +34,7 @@ const PlanetCard = ({ planet }) => {
 
 const styles = StyleSheet.create({
     card: {
-        height: 170,
+        height: 140,
         width: "80%",
         minWidth: 250,
         margin: 10,
@@ -32,6 +44,24 @@ const styles = StyleSheet.create({
         borderColor: "#ffffff",
         borderWidth: 2,
         borderRadius: 10,
+    },
+    facil: {
+        backgroundColor: "green",
+        width: 80,
+        height: 20,
+        borderRadius: 10,
+    },
+    moderada: {
+        backgroundColor: "yellow",
+        width: 80,
+        height: 20,
+        borderRadius: 10
+    },
+    dificil: {
+        backgroundColor: "purple",
+        width: 80,
+        height: 20,
+        borderRadius: 10
     },
     container: {
         backgroundColor: "#000000",
@@ -46,6 +76,12 @@ const styles = StyleSheet.create({
         color: "#ffffff",
         alignSelf: "center",
     },
+    favorites: {
+        fontSize: 14,
+        marginBottom: 10,
+        color: "#ffffff",
+        marginLeft: 10,
+    },
 });
 
-export default PlanetCard;
+export default DestinationCard;
